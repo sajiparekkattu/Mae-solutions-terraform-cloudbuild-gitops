@@ -31,22 +31,31 @@ steps:
   - '-c'
   - |
       if [ -d "environments/$BRANCH_NAME/" ]; then
+        echo "Branch directory found: environments/$BRANCH_NAME"
         cd environments/$BRANCH_NAME
         terraform init
       else
-        for dir in environments/*/
-        do 
-          cd ${dir}   
-          env=${dir%*/}
-          env=${env#*/}
-          echo ""
-          echo "*************** TERRAFORM INIT ******************"
-          echo "******* At environment: ${env} ********"
-          echo "*************************************************"
-          terraform init || exit 1
-          cd ../../
+        echo "Branch directory not found. Iterating over all environments..."
+        for dir in environments/*/; 
+        do
+          if [ -d "$dir" ]; then
+              cd "$dir"
+              env=${dir%*/}
+              env=${env#*/}
+              echo ""
+              echo "*************** TERRAFORM INIT ******************"
+              echo "******* At environment: ${env} ********"
+              echo "*************************************************"
+              terraform init || {
+                echo "Terraform init failed in $dir"
+                exit 1
+              }
+              cd ../../
+          else
+              echo "Skipping $dir: Not a directory"
+          fi
         done
-      fi 
+      fi
 
 # [START tf-plan]
 - id: 'tf plan'
