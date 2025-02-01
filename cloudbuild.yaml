@@ -27,7 +27,6 @@ steps:
 
 - id: 'tf init plain'
   name: 'hashicorp/terraform'
-  entrypoint: 'sh'
   script: terraform init
 
 - id: 'tf init'
