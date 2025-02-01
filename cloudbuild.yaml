@@ -24,6 +24,12 @@ steps:
       echo "$BRANCH_NAME"
       echo "***********************"
 
+
+- id: 'tf init plain'
+  name: 'hashicorp/terraform'
+  entrypoint: 'sh'
+  script: terraform init
+
 - id: 'tf init'
   name: 'hashicorp/terraform'
   entrypoint: 'sh'
