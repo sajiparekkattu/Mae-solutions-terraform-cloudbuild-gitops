@@ -39,6 +39,7 @@ steps:
   args: 
   - '-c'
   - |
+      cd sajiparekkattu-patch-1
       terraform plan
       
 
