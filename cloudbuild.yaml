@@ -37,7 +37,7 @@ steps:
       if [ -d "environments/$BRANCH_NAME/" ]; then
         echo "Branch directory found: environments/$BRANCH_NAME"
         cd environments/$BRANCH_NAME
-        terraform init
+        terraform init -migrate-state
       else
         echo "Branch directory not found. Iterating over all environments..."
         for dir in environments/*/; 
@@ -50,7 +50,7 @@ steps:
               echo "*************** TERRAFORM INIT ******************"
               echo "******* At environment: ${env} ********"
               echo "*************************************************"
-              terraform init || {
+              terraform init  || {
                 echo "Terraform init failed in $dir"
                 exit 1
               }
