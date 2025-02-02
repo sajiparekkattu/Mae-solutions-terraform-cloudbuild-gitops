@@ -33,6 +33,15 @@ steps:
   - |
       terraform init
 
+- id: 'tf plan1'
+  name: 'hashicorp/terraform:1.0.0'
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - |
+      terraform plan
+      
+
 - id: 'tf init'
   name: 'hashicorp/terraform'
   entrypoint: 'sh'
