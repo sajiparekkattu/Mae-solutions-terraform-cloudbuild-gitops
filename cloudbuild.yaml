@@ -25,9 +25,13 @@ steps:
       echo "***********************"
 
 
-- id: 'tf init plain'
-  name: 'hashicorp/terraform'
-  script: terraform init
+- id: 'tf init'
+  name: 'hashicorp/terraform:1.0.0'
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - |
+      terraform init
 
 - id: 'tf init'
   name: 'hashicorp/terraform'
